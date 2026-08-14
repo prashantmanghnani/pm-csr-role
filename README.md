@@ -1,1 +1,1382 @@
 # pm-csr-role
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#F05519" />
+<title>Fin-ACT Money Personality</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   Fin-ACT Money Personality
+   Single-file workshop experience
+   Palette + typography are centralized here for easy edits.
+   ========================================================= */
+:root{
+  --ink:#111216; --graphite:#24252B; --muted:#5C626D; --bg:#F7F7F3;
+  --cream:#FFF4E8; --paper:#FFFFFF; --orange:#F05519; --orange2:#FF7A1A;
+  --yellow:#FFC845; --blue:#2F6FED; --green:#16A34A; --mint:#DDF7EC;
+  --purple:#8357E6; --red:#EF4444;
+  --line:#E7E7E0; --shadow:0 20px 60px rgba(17,18,22,.10);
+  --radius:26px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:
+  radial-gradient(circle at 9% 5%,rgba(255,200,69,.20),transparent 28%),
+  radial-gradient(circle at 96% 8%,rgba(47,111,237,.10),transparent 25%),
+  var(--bg);
+  font-family:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.55;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+img,svg{max-width:100%}
+.hidden{display:none!important}
+.shell{width:min(1180px,calc(100% - 32px));margin:0 auto}
+.kicker{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
+  background:#fff;border:1px solid var(--line);font-weight:800;font-size:12px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--orange);box-shadow:0 8px 25px rgba(17,18,22,.05)
+}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--orange)}
+h1,h2,h3,.display{font-family:"Poppins",sans-serif;line-height:1.08;margin:0}
+h1{font-size:clamp(42px,7vw,82px);letter-spacing:-.045em}
+h2{font-size:clamp(30px,4vw,48px);letter-spacing:-.03em}
+h3{font-size:clamp(20px,2vw,26px)}
+p{margin:0}
+.hero{padding:28px 0 54px;overflow:hidden}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:52px}
+.brand{display:flex;align-items:center;gap:12px;font-family:"Poppins";font-weight:800}
+.brandmark{
+  width:42px;height:42px;border-radius:14px;background:var(--ink);display:grid;place-items:center;color:#fff;
+  position:relative;overflow:hidden;box-shadow:0 12px 24px rgba(17,18,22,.16)
+}
+.brandmark:after{content:"";width:20px;height:20px;border-radius:50%;background:var(--orange);position:absolute;right:-6px;bottom:-4px}
+.brandmark span{position:relative;z-index:1}
+.nav-note{font-size:13px;color:var(--muted);font-weight:700}
+.hero-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:52px;align-items:center}
+.hero-copy{max-width:700px}
+.hero h1 .accent{color:var(--orange)}
+.lede{font-size:clamp(17px,2vw,21px);color:var(--muted);max-width:650px;margin:24px 0 28px}
+.hero-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn{
+  border:0;border-radius:15px;padding:14px 20px;font-weight:800;display:inline-flex;align-items:center;
+  justify-content:center;gap:9px;transition:.2s transform,.2s box-shadow,.2s background;min-height:50px
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--orange);color:#fff;box-shadow:0 14px 28px rgba(240,85,25,.24)}
+.btn-primary:hover{box-shadow:0 18px 34px rgba(240,85,25,.30)}
+.btn-secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost{background:transparent;color:var(--muted);padding-inline:10px}
+.micro{font-size:12px;color:var(--muted);margin-top:13px}
+.hero-art{
+  min-height:480px;border-radius:34px;background:linear-gradient(145deg,#fff 0%,#fff8f1 100%);
+  border:1px solid rgba(240,85,25,.15);box-shadow:var(--shadow);position:relative;overflow:hidden;padding:28px
+}
+.hero-art:before{content:"";position:absolute;inset:auto -70px -70px auto;width:250px;height:250px;border-radius:50%;background:var(--yellow);opacity:.34}
+.hero-art:after{content:"";position:absolute;inset:-85px auto auto -85px;width:220px;height:220px;border-radius:50%;background:var(--blue);opacity:.12}
+.hero-art .axis-card{position:absolute;inset:62px 42px 42px;background:#fff;border:1px solid var(--line);border-radius:25px;padding:24px;z-index:2}
+.axis-stage{position:relative;height:100%;min-height:330px}
+.axis-v,.axis-h{position:absolute;background:#D9D9D2}
+.axis-h{height:1px;left:7%;right:7%;top:50%}
+.axis-v{width:1px;top:7%;bottom:7%;left:50%}
+.axis-label{position:absolute;font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.axis-label.top{top:2%;left:50%;transform:translateX(-50%)}
+.axis-label.bottom{bottom:2%;left:50%;transform:translateX(-50%)}
+.axis-label.left{left:0;top:50%;transform:translateY(-50%) rotate(-90deg)}
+.axis-label.right{right:-5px;top:50%;transform:translateY(-50%) rotate(90deg)}
+.mini{position:absolute;width:78px;height:78px;border-radius:24px;display:grid;place-items:center;border:1px solid rgba(17,18,22,.06);box-shadow:0 10px 24px rgba(17,18,22,.10)}
+.mini svg{width:60px;height:60px}
+.mini.a{left:16%;top:17%;background:#EAF1FF;transform:rotate(-4deg)}
+.mini.b{right:14%;top:16%;background:#F1EBFF;transform:rotate(5deg)}
+.mini.c{right:16%;bottom:13%;background:#E8F8F6;transform:rotate(-3deg)}
+.mini.d{left:15%;bottom:14%;background:#FFF2D7;transform:rotate(4deg)}
+.axis-center{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:88px;height:88px;border-radius:30px;
+  background:var(--orange);color:#fff;display:grid;place-items:center;text-align:center;font-family:"Poppins";font-weight:800;font-size:12px;
+  box-shadow:0 15px 34px rgba(240,85,25,.25)
+}
+.how{padding:20px 0 70px}
+.how-card{background:var(--ink);color:#fff;border-radius:32px;padding:32px;display:grid;grid-template-columns:.9fr 1.1fr;gap:30px}
+.how-card h2{font-size:clamp(28px,4vw,44px)}
+.how-card p{color:#C9CBD2;margin-top:12px}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.how-item{background:#2B2D34;border:1px solid #3A3C45;border-radius:20px;padding:18px;min-height:148px}
+.stepnum{width:32px;height:32px;border-radius:10px;background:var(--orange);display:grid;place-items:center;font-family:"Poppins";font-size:13px;margin-bottom:26px}
+.how-item strong{display:block;font-family:"Poppins";font-size:16px}
+.how-item span{display:block;color:#BFC2CA;font-size:13px;margin-top:5px}
+.section{padding:58px 0}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:24px}
+.section-head p{max-width:580px;color:var(--muted)}
+.quiz-wrap{max-width:920px;margin:0 auto}
+.quiz-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px}
+.progress-meta{font-size:13px;font-weight:800;color:var(--muted)}
+.progress-track{height:10px;background:#E9E9E3;border-radius:999px;overflow:hidden;margin-bottom:24px}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--orange),var(--yellow));border-radius:999px;transition:width .35s ease}
+.quiz-card{
+  background:#fff;border-radius:30px;border:1px solid var(--line);box-shadow:var(--shadow);padding:clamp(22px,4vw,42px);
+  min-height:540px;display:flex;flex-direction:column;justify-content:space-between
+}
+.question-topic{font-size:12px;text-transform:uppercase;letter-spacing:.1em;font-weight:800;color:var(--orange);margin-bottom:12px}
+.question{font-family:"Poppins";font-size:clamp(25px,3vw,36px);line-height:1.22;letter-spacing:-.02em;max-width:790px}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:30px}
+.answer{
+  text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:18px;padding:17px 18px;min-height:86px;
+  display:flex;gap:14px;align-items:flex-start;color:var(--graphite);font-weight:600;transition:.18s
+}
+.answer:hover{border-color:#F6B99F;background:#FFF9F6;transform:translateY(-1px)}
+.answer.selected{border-color:var(--orange);background:#FFF2EC;box-shadow:0 0 0 3px rgba(240,85,25,.08)}
+.answer-letter{
+  flex:0 0 30px;width:30px;height:30px;border-radius:10px;background:#F2F2ED;color:var(--muted);display:grid;place-items:center;
+  font-family:"Poppins";font-size:12px
+}
+.answer.selected .answer-letter{background:var(--orange);color:#fff}
+.quiz-nav{display:flex;justify-content:space-between;gap:12px;margin-top:28px}
+.result-shell{max-width:1050px;margin:0 auto}
+.result-card{
+  background:#fff;border-radius:34px;border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden;
+  --result:#F05519;--result-soft:#FFF0E8
+}
+.result-top{display:grid;grid-template-columns:.88fr 1.12fr;min-height:420px}
+.result-art{
+  background:linear-gradient(155deg,var(--result-soft),#fff);padding:32px;display:flex;align-items:center;justify-content:center;
+  border-right:1px solid var(--line);position:relative;overflow:hidden
+}
+.result-art:before{content:"";position:absolute;width:210px;height:210px;border-radius:50%;border:40px solid var(--result);opacity:.08;right:-95px;top:-70px}
+.result-art svg{width:min(360px,90%);height:auto;position:relative;z-index:1}
+.result-copy{padding:clamp(28px,4vw,48px)}
+.result-copy .kicker{color:var(--result);background:var(--result-soft);border:0}
+.result-title{font-size:clamp(38px,5vw,64px);margin-top:14px}
+.result-tagline{font-size:20px;color:var(--muted);margin-top:10px}
+.quadrant-pill{display:inline-flex;padding:8px 12px;border-radius:999px;background:var(--ink);color:#fff;font-size:12px;font-weight:800;margin-top:20px}
+.trait-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.trait{border:1px solid var(--line);border-radius:999px;padding:7px 11px;font-size:12px;font-weight:800}
+.result-body{padding:clamp(24px,4vw,42px);display:grid;grid-template-columns:1fr 1fr;gap:18px;border-top:1px solid var(--line)}
+.insight{border:1px solid var(--line);border-radius:22px;padding:22px;background:#fff}
+.insight.highlight{background:var(--result-soft);border-color:transparent}
+.insight-label{font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.09em;text-transform:uppercase;margin-bottom:8px}
+.insight p{color:var(--graphite)}
+.examples{grid-column:1 / -1}
+.examples ul{margin:10px 0 0;padding-left:20px;color:var(--graphite)}
+.examples li+li{margin-top:8px}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.axis-panel,.commit-panel{background:#fff;border:1px solid var(--line);border-radius:24px;padding:24px}
+.axis-panel h3,.commit-panel h3{font-size:21px;margin-bottom:6px}
+.axis-panel>p,.commit-panel>p{color:var(--muted);font-size:14px}
+.axis-map{position:relative;height:260px;margin-top:20px;border-radius:20px;background:#FAFAF7;border:1px solid var(--line);overflow:hidden}
+.axis-map:before{content:"";position:absolute;width:1px;top:12%;bottom:12%;left:50%;background:#CBCDC8}
+.axis-map:after{content:"";position:absolute;height:1px;left:10%;right:10%;top:50%;background:#CBCDC8}
+.map-label{position:absolute;font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+.map-label.ml{left:8px;top:50%;transform:translateY(-50%) rotate(-90deg)}
+.map-label.mr{right:2px;top:50%;transform:translateY(-50%) rotate(90deg)}
+.map-label.mt{top:7px;left:50%;transform:translateX(-50%)}
+.map-label.mb{bottom:7px;left:50%;transform:translateX(-50%)}
+.map-dot{position:absolute;width:28px;height:28px;border-radius:50%;background:var(--result);border:6px solid #fff;box-shadow:0 7px 18px rgba(17,18,22,.20);transform:translate(-50%,-50%);transition:.5s}
+.score-list{display:grid;gap:10px;margin-top:16px}
+.score-line{display:grid;grid-template-columns:105px 1fr 42px;align-items:center;gap:10px;font-size:12px;font-weight:700}
+.score-track{height:8px;background:#EEEFEA;border-radius:999px;overflow:hidden}
+.score-bar{height:100%;background:var(--result);border-radius:999px}
+.commit-input{
+  width:100%;border:1.5px solid var(--line);border-radius:16px;padding:15px;margin-top:18px;outline:none;
+  font-size:15px;background:#FAFAF7
+}
+.commit-input:focus{border-color:var(--result);box-shadow:0 0 0 3px color-mix(in srgb,var(--result) 12%,transparent)}
+.action-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.small-btn{border:1px solid var(--line);background:#fff;padding:11px 14px;border-radius:12px;font-weight:800;font-size:13px}
+.small-btn.primary{background:var(--result);color:#fff;border-color:var(--result)}
+.mascot-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.mascot-card{
+  background:#fff;border:1px solid var(--line);border-radius:24px;padding:16px;min-height:280px;display:flex;flex-direction:column;
+  transition:.2s transform,.2s box-shadow
+}
+.mascot-card:hover{transform:translateY(-4px);box-shadow:0 16px 35px rgba(17,18,22,.09)}
+.mascot-visual{height:150px;border-radius:18px;display:grid;place-items:center;overflow:hidden}
+.mascot-visual svg{width:135px;height:135px}
+.mascot-card h3{font-size:18px;margin-top:14px}
+.mascot-card p{color:var(--muted);font-size:13px;margin-top:5px}
+.accent-line{width:36px;height:5px;border-radius:999px;margin-top:auto}
+.prompts{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:24px;padding:24px}
+.prompts summary{cursor:pointer;font-family:"Poppins";font-weight:700}
+.prompt-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.prompt-item{background:#FAFAF7;border:1px solid var(--line);border-radius:16px;padding:16px;font-size:13px;color:var(--graphite)}
+.prompt-item strong{display:block;color:var(--ink);font-family:"Poppins";margin-bottom:6px}
+footer{padding:40px 0 64px;color:var(--muted);font-size:13px}
+.footer-card{border-top:1px solid var(--line);padding-top:20px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:11px 16px;border-radius:12px;font-size:13px;font-weight:700;opacity:0;pointer-events:none;transition:.25s;z-index:50}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (max-width:900px){
+  .hero-grid,.how-card,.result-top,.compare{grid-template-columns:1fr}
+  .hero-art{min-height:410px}
+  .how-grid{grid-template-columns:1fr}
+  .how-item{min-height:auto}
+  .answers{grid-template-columns:1fr}
+  .result-art{border-right:0;border-bottom:1px solid var(--line);min-height:340px}
+  .mascot-gallery{grid-template-columns:1fr 1fr}
+}
+@media (max-width:620px){
+  .shell{width:min(100% - 20px,1180px)}
+  .hero{padding-top:16px}
+  .nav{margin-bottom:34px}
+  .nav-note{display:none}
+  .hero-grid{gap:28px}
+  .hero-art{min-height:350px;padding:16px}
+  .hero-art .axis-card{inset:34px 16px 16px;padding:12px}
+  .mini{width:62px;height:62px;border-radius:18px}
+  .mini svg{width:48px;height:48px}
+  .axis-center{width:76px;height:76px;border-radius:24px}
+  .section{padding:40px 0}
+  .quiz-card{padding:20px;min-height:570px}
+  .answer{min-height:78px}
+  .quiz-nav .btn{flex:1}
+  .result-body{grid-template-columns:1fr}
+  .examples{grid-column:auto}
+  .mascot-gallery,.prompt-grid{grid-template-columns:1fr}
+  .section-head{align-items:flex-start;flex-direction:column}
+  .score-line{grid-template-columns:90px 1fr 36px}
+}
+@media print{
+  body{background:#fff}
+  .hero,.how,#quizSection,#gallerySection,footer,.result-actions,.toast,.nav{display:none!important}
+  #resultSection{display:block!important;padding:0}
+  .shell,.result-shell{width:100%;max-width:none}
+  .result-card,.axis-panel,.commit-panel{box-shadow:none}
+  .result-card{border:0}
+  .compare{page-break-before:avoid}
+}
+
+/* ===== Fin-ACT pre-reflection + final profile enhancements ===== */
+.preflight{padding:58px 0 70px}
+.preflight-card{background:#fff;border:1px solid var(--line);border-radius:32px;box-shadow:var(--shadow);padding:clamp(24px,4vw,40px)}
+.preflight-head{max-width:760px;margin-bottom:26px}
+.preflight-head p{color:var(--muted);margin-top:10px;font-size:16px}
+.choice-block{padding:24px 0;border-top:1px solid var(--line)}
+.choice-block:first-of-type{border-top:0}
+.choice-title{display:flex;align-items:center;gap:11px;margin-bottom:6px}
+.choice-title .num{width:32px;height:32px;border-radius:11px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:800;font-size:12px}
+.choice-block>p{color:var(--muted);font-size:14px;margin-bottom:16px}
+.style-picker{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}
+.style-pick{border:1.5px solid var(--line);background:#fff;border-radius:18px;padding:13px;text-align:left;transition:.18s;min-height:128px;position:relative}
+.style-pick:hover{transform:translateY(-2px);border-color:#D2D4CF}
+.style-pick.selected{border-color:var(--accent);background:var(--soft);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 10%,transparent)}
+.style-pick .pick-top{display:flex;align-items:center;gap:9px}
+.style-pick .pick-icon{width:45px;height:45px;border-radius:14px;background:var(--soft);display:grid;place-items:center;overflow:hidden}
+.style-pick .pick-icon svg{width:42px;height:42px}
+.style-pick strong{font-family:"Poppins";font-size:14px;line-height:1.15}
+.style-pick small{display:block;color:var(--muted);font-size:11px;margin-top:8px;line-height:1.35}
+.preflight-action{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:20px;border-top:1px solid var(--line)}
+.preflight-action p{color:var(--muted);font-size:13px}
+.preflight-action .btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.profile-summary{margin-top:18px;color:var(--graphite);font-size:16px;max-width:640px}
+.superpower-badge{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:9px 13px;border-radius:14px;background:var(--result-soft);color:var(--result);font-weight:800;font-size:13px}
+.reflection-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+.reflection-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px}
+.reflection-card .rlabel{font-size:10px;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:var(--muted)}
+.reflection-card .rname{font-family:"Poppins";font-size:18px;margin-top:6px}
+.reflection-card .rmini{display:flex;align-items:center;gap:10px;margin-top:9px;color:var(--muted);font-size:12px}
+.reflection-card .rmini svg{width:42px;height:42px}
+.growth-panel{margin-top:18px;background:var(--ink);color:#fff;border-radius:26px;padding:clamp(22px,4vw,30px);display:grid;grid-template-columns:.72fr 1.28fr;gap:24px;align-items:center}
+.growth-persona{display:flex;align-items:center;gap:16px}
+.growth-persona .g-art{width:120px;height:120px;border-radius:28px;background:#fff;display:grid;place-items:center;overflow:hidden;flex:0 0 auto}
+.growth-persona .g-art svg{width:110px;height:110px}
+.growth-persona p{color:#C9CBD2;font-size:13px;margin-top:5px}
+.growth-list{display:grid;gap:10px}
+.growth-step{display:grid;grid-template-columns:30px 1fr;gap:11px;align-items:start;background:#2B2D34;border:1px solid #3A3C45;border-radius:16px;padding:13px}
+.growth-step .gnum{width:30px;height:30px;border-radius:10px;background:var(--orange);display:grid;place-items:center;font-weight:800;font-size:12px}
+.growth-step strong{display:block;font-size:13px}
+.famous-card{grid-column:1/-1;background:#FAFAF7;border:1px solid var(--line);border-radius:22px;padding:22px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}
+.famous-avatar{width:58px;height:58px;border-radius:18px;background:var(--result);color:#fff;display:grid;place-items:center;font-family:"Poppins";font-weight:800;font-size:20px}
+.famous-card .fname{font-family:"Poppins";font-size:18px}
+.famous-card .frole{color:var(--result);font-weight:800;font-size:12px;margin:2px 0 5px}
+.famous-card .fnote{color:var(--muted);font-size:13px}
+.famous-disclaimer{font-size:10px;color:#8A8E96;margin-top:7px}
+.month-plan{grid-column:1/-1;border:1px solid var(--line);border-radius:22px;padding:22px;background:#fff}
+.month-plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.month-step{background:#FAFAF7;border-radius:16px;padding:15px;border:1px solid var(--line)}
+.month-step span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:800}
+.month-step strong{display:block;margin-top:5px;font-size:13px}
+@media(max-width:900px){
+  .style-picker{grid-template-columns:1fr 1fr}
+  .growth-panel{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .style-picker,.reflection-strip,.month-plan-grid{grid-template-columns:1fr}
+  .preflight-action{align-items:stretch;flex-direction:column}
+  .growth-persona{align-items:flex-start}
+  .growth-persona .g-art{width:90px;height:90px}
+  .growth-persona .g-art svg{width:85px;height:85px}
+}
+
+
+/* ===== Simple 2x2 self-assessment ===== */
+.simple-axis-guide{
+  position:relative;
+  padding:58px 70px 62px;
+  margin-top:20px;
+  border:1px solid var(--line);
+  border-radius:26px;
+  background:#FAFAF7;
+}
+.simple-quadrant-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  position:relative;
+}
+.simple-quadrant-grid:not(.standalone):before{
+  content:"";
+  position:absolute;
+  width:1px;
+  left:50%;
+  top:-13px;
+  bottom:-13px;
+  background:#D7D9D4;
+  z-index:0;
+}
+.simple-quadrant-grid:not(.standalone):after{
+  content:"";
+  position:absolute;
+  height:1px;
+  top:50%;
+  left:-13px;
+  right:-13px;
+  background:#D7D9D4;
+  z-index:0;
+}
+.quad-pick{
+  --qaccent:#F05519;
+  --qsoft:#FFF0E8;
+  position:relative;
+  z-index:1;
+  min-height:156px;
+  padding:19px;
+  text-align:left;
+  border:1.5px solid var(--line);
+  border-radius:20px;
+  background:#fff;
+  transition:.18s transform,.18s border-color,.18s box-shadow;
+}
+.quad-pick:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(17,18,22,.07)}
+.quad-pick.selected{
+  border-color:var(--qaccent);
+  background:var(--qsoft);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--qaccent) 10%,transparent);
+}
+.q-title{font-family:"Poppins";font-weight:800;font-size:18px;line-height:1.22}
+.q-words{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.q-word{
+  display:inline-flex;padding:5px 8px;border-radius:999px;
+  background:var(--qsoft);color:var(--qaccent);
+  font-size:11px;font-weight:800
+}
+.quad-pick p{font-size:13px;color:var(--muted);margin-top:11px}
+.axis-word{
+  position:absolute;color:var(--muted);font-size:10px;font-weight:800;
+  letter-spacing:.08em;white-space:nowrap
+}
+.top-word{top:18px;left:50%;transform:translateX(-50%)}
+.bottom-word{bottom:18px;left:50%;transform:translateX(-50%)}
+.left-word{left:15px;top:50%;transform:translateY(-50%) rotate(-90deg)}
+.right-word{right:-18px;top:50%;transform:translateY(-50%) rotate(90deg)}
+.desired-block{margin-top:12px}
+.reflection-card .quad-chip{
+  display:inline-flex;padding:7px 10px;border-radius:999px;
+  font-size:11px;font-weight:800;margin-top:8px
+}
+.target-mascots{display:flex;gap:8px}
+.target-mascots svg{width:54px!important;height:54px!important}
+@media(max-width:700px){
+  .simple-axis-guide{padding:48px 12px 52px}
+  .simple-quadrant-grid{grid-template-columns:1fr}
+  .simple-quadrant-grid:not(.standalone):before,
+  .simple-quadrant-grid:not(.standalone):after{display:none}
+  .axis-word.left-word,.axis-word.right-word{display:none}
+  .quad-pick{min-height:auto}
+}
+
+
+/* ===== One-choice opening + experience length ===== */
+.intent-toggle,.length-picker{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.intent-option,.length-option{
+  border:1.5px solid var(--line);background:#fff;border-radius:18px;padding:17px;text-align:left;
+  transition:.18s;min-height:105px;position:relative
+}
+.intent-option:hover,.length-option:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(17,18,22,.06)}
+.intent-option.selected,.length-option.selected{border-color:var(--orange);background:#FFF4EE;box-shadow:0 0 0 3px rgba(240,85,25,.08)}
+.intent-option strong,.length-option strong{font-family:"Poppins";display:block;font-size:15px}
+.intent-option span,.length-option>span:last-child{display:block;color:var(--muted);font-size:12px;margin-top:5px;line-height:1.4}
+.length-badge{display:inline-flex!important;width:max-content;padding:4px 7px;border-radius:999px;background:var(--orange);color:#fff!important;font-size:9px!important;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px!important}
+.muted-badge{background:#EEF0EC!important;color:var(--muted)!important}
+.reflection-strip.two-up{grid-template-columns:1fr 1fr}
+@media(max-width:620px){
+  .intent-toggle,.length-picker,.reflection-strip.two-up{grid-template-columns:1fr}
+}
+
+</style>
+</head>
+<body>
+<div class="toast" id="toast" aria-live="polite"></div>
+
+<header class="hero" id="home">
+  <div class="shell">
+    <nav class="nav">
+      <div class="brand">
+        <div class="brandmark"><span>FA</span></div>
+        <div>Fin-ACT <span style="color:var(--orange)">Money Personality</span></div>
+      </div>
+      <div class="nav-note">A self-reflection workshop tool · ~4 minutes</div>
+    </nav>
+
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="kicker"><span class="dot"></span> Fin-ACT Workshop Experience</span>
+        <h1 style="margin-top:18px">Meet your <span class="accent">money personality.</span></h1>
+        <p class="lede">Choose a quick 12-moment journey or go deeper with 20. Both use familiar Indian money situations to reveal the pattern behind your everyday choices.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="startBtn">Discover my money style <span>→</span></button>
+          <button class="btn btn-secondary" id="resumeBtn">Continue my journey</button>
+        </div>
+        <div class="micro">Quick 12 by default · Full 20 optional · No right or wrong answers</div>
+      </div>
+
+      <div class="hero-art" aria-label="Money personality quadrant preview">
+        <div class="axis-card">
+          <div class="axis-stage">
+            <div class="axis-h"></div><div class="axis-v"></div>
+            <span class="axis-label top">Planned</span>
+            <span class="axis-label bottom">Reactive</span>
+            <span class="axis-label left">Protect / Reset</span>
+            <span class="axis-label right">Grow / Enjoy</span>
+            <div class="mini a" id="heroOwl"></div>
+            <div class="mini b" id="heroFox"></div>
+            <div class="mini c" id="heroDolphin"></div>
+            <div class="mini d" id="heroCheetah"></div>
+            <div class="axis-center">YOUR<br>MONEY<br>STYLE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="how">
+  <div class="shell">
+    <div class="how-card">
+      <div>
+        <span class="kicker" style="background:#2B2D34;border-color:#3A3C45;color:#FF9A6F">How it works</span>
+        <h2 style="margin-top:16px">Choose the next move that feels most like real life.</h2>
+        <p>This is a conversation starter for financial literacy workshops. Your profile describes a tendency, not a fixed identity.</p>
+      </div>
+      <div class="how-grid">
+        <div class="how-item"><div class="stepnum">01</div><strong>Self-reflection</strong><span>React to familiar Indian money situations.</span></div>
+        <div class="how-item"><div class="stepnum">02</div><strong>No right answer</strong><span>Every style has strengths and blind spots.</span></div>
+        <div class="how-item"><div class="stepnum">03</div><strong>Pick one habit</strong><span>Use your result to choose a practical next step.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="preflight" id="preflightSection">
+  <div class="shell">
+    <div class="preflight-card">
+      <div class="preflight-head">
+        <span class="kicker"><span class="dot"></span> Before you begin</span>
+        <h2 style="margin-top:14px">Choose one money direction.</h2>
+        <p>There is only one starting choice. Tell us whether you are choosing what feels like you today, or a direction you would like to grow toward.</p>
+      </div>
+
+      <div class="choice-block" style="padding-top:0">
+        <div class="choice-title"><span class="num">01</span><h3>How are you choosing?</h3></div>
+        <div class="intent-toggle" id="intentToggle">
+          <button class="intent-option selected" data-mode="current">
+            <strong>This feels like me today</strong>
+            <span>I’m choosing the box closest to how I usually handle money now.</span>
+          </button>
+          <button class="intent-option" data-mode="aspire">
+            <strong>I want to become more like this</strong>
+            <span>I’m choosing a money direction I would like to build.</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="choice-block">
+        <div class="choice-title"><span class="num">02</span><h3 id="quadrantPrompt">Which box feels most like you today?</h3></div>
+        <p id="quadrantHelp">Go with your first instinct. There is no better or worse box.</p>
+
+        <div class="simple-axis-guide">
+          <div class="axis-word top-word">PLAN AHEAD</div>
+          <div class="axis-word bottom-word">GO WITH THE MOMENT</div>
+          <div class="axis-word left-word">SECURITY</div>
+          <div class="axis-word right-word">GROWTH / ENJOYMENT</div>
+          <div class="simple-quadrant-grid" id="openingQuadrantPicker"></div>
+        </div>
+      </div>
+
+      <div class="choice-block">
+        <div class="choice-title"><span class="num">03</span><h3>How deep do you want to go?</h3></div>
+        <p>Quick is recommended for workshops. Full gives a slightly more detailed profile.</p>
+        <div class="length-picker" id="lengthPicker">
+          <button class="length-option selected" data-length="12">
+            <span class="length-badge">Recommended</span>
+            <strong>Quick · 12 Money Moments</strong>
+            <span>About 4 minutes</span>
+          </button>
+          <button class="length-option" data-length="20">
+            <span class="length-badge muted-badge">Deeper</span>
+            <strong>Full · 20 Money Moments</strong>
+            <span>About 6–7 minutes</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="preflight-action">
+        <p id="startSummary">12 Money Moments selected. Your opening choice will be compared with your final profile.</p>
+        <button class="btn btn-primary" id="beginMomentsBtn" disabled>Begin 12 Money Moments →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main>
+<section class="section hidden" id="quizSection">
+  <div class="shell quiz-wrap">
+    <div class="quiz-top">
+      <span class="kicker"><span class="dot"></span> Money moment</span>
+      <div class="progress-meta" id="progressMeta">Money Moment 1 of 12</div>
+    </div>
+    <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+
+    <div class="quiz-card">
+      <div>
+        <div class="question-topic" id="questionTopic">Planning</div>
+        <div class="question" id="questionText"></div>
+        <div class="answers" id="answers"></div>
+      </div>
+      <div class="quiz-nav">
+        <button class="btn btn-secondary" id="prevBtn">← Previous</button>
+        <button class="btn btn-primary" id="nextBtn">Next →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section hidden" id="resultSection">
+  <div class="shell result-shell">
+    <div class="section-head">
+      <div><span class="kicker"><span class="dot"></span> Your profile</span><h2 style="margin-top:12px">Your Fin-ACT Money Profile</h2></div>
+      <p>Use this as a mirror, not a verdict. People can shift styles across life stages, income levels, and situations.</p>
+    </div>
+
+    <div class="result-card" id="resultCard">
+      <div class="result-top">
+        <div class="result-art" id="resultMascot"></div>
+        <div class="result-copy">
+          <span class="kicker" id="resultKicker">Your type</span>
+          <h2 class="result-title" id="resultTitle"></h2>
+          <p class="result-tagline" id="resultTagline"></p><div class="superpower-badge" id="superpowerBadge"></div><p class="profile-summary" id="profileSummary"></p>
+          <span class="quadrant-pill" id="quadrantPill"></span>
+          <div class="trait-row" id="traitRow"></div>
+        </div>
+      </div>
+      <div class="result-body">
+        <div class="insight">
+          <div class="insight-label">Your superpower</div>
+          <p id="strengthText"></p>
+        </div>
+        <div class="insight">
+          <div class="insight-label">Your growth edge</div>
+          <p id="blindText"></p>
+        </div>
+        <div class="insight highlight" style="grid-column:1/-1">
+          <div class="insight-label">Best next habit</div>
+          <p id="habitText" style="font-weight:800;font-size:18px"></p>
+        </div>
+        <div class="insight examples">
+          <div class="insight-label">How this can show up in real life</div>
+          <ul id="examplesList"></ul>
+        </div>
+        <div class="famous-card" id="famousCard">
+          <div class="famous-avatar" id="famousAvatar"></div>
+          <div>
+            <div class="insight-label">Famous mindset reference</div>
+            <div class="fname" id="famousName"></div>
+            <div class="frole" id="famousRole"></div>
+            <div class="fnote" id="famousNote"></div>
+            <div class="famous-disclaimer">A public-mindset analogy for learning, not a claim about this person’s private financial personality.</div>
+          </div>
+        </div>
+        <div class="month-plan">
+          <div class="insight-label">Your 30-day money upgrade</div>
+          <h3 id="monthPlanTitle" style="font-size:20px"></h3>
+          <div class="month-plan-grid" id="monthPlanGrid"></div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="reflection-strip two-up">
+      <div class="reflection-card">
+        <div class="rlabel" id="openingChoiceLabel">Your starting choice</div>
+        <div class="rname" id="openingChoiceName">—</div>
+        <div class="rmini" id="openingChoiceMini"></div>
+      </div>
+      <div class="reflection-card">
+        <div class="rlabel" id="actualChoiceLabel">Your money moments point to</div>
+        <div class="rname" id="actualResultName">—</div>
+        <div class="rmini" id="actualResultMini"></div>
+      </div>
+    </div>
+
+    <div class="growth-panel">
+      <div class="growth-persona">
+        <div class="g-art" id="growthMascot"></div>
+        <div>
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:#AEB2BC;font-weight:800">Your growth direction</div>
+          <h3 id="growthTitle" style="margin-top:6px"></h3>
+          <p id="growthIntro"></p>
+        </div>
+      </div>
+      <div class="growth-list" id="growthList"></div>
+    </div>
+
+<div class="compare">
+      <div class="axis-panel">
+        <h3>Your position on the two axes</h3>
+        <p>A simple visual of your overall response pattern.</p>
+        <div class="axis-map">
+          <span class="map-label mt">Planned</span>
+          <span class="map-label mb">Reactive</span>
+          <span class="map-label ml">Protect / Reset</span>
+          <span class="map-label mr">Grow / Enjoy</span>
+          <div class="map-dot" id="mapDot"></div>
+        </div>
+        <div class="score-list">
+          <div class="score-line"><span>Planning</span><div class="score-track"><div class="score-bar" id="planBar"></div></div><span id="planPct">0%</span></div>
+          <div class="score-line"><span>Growth / Enjoy</span><div class="score-track"><div class="score-bar" id="motiveBar"></div></div><span id="motivePct">0%</span></div>
+        </div>
+      </div>
+
+      <div class="commit-panel">
+        <h3>My Fin-ACT commitment</h3>
+        <p>Choose one small behaviour you want to practice after this workshop.</p>
+        <input class="commit-input" id="commitmentInput" maxlength="140" placeholder="Example: check my subscriptions every Sunday." />
+        <div class="action-row result-actions">
+          <button class="small-btn primary" id="saveCommitmentBtn">Save commitment</button>
+          <button class="small-btn" id="printBtn">Print / Save PDF</button>
+          <button class="small-btn" id="downloadCardBtn">Download result card</button>
+          <button class="small-btn" id="exportJsonBtn">Export JSON</button>
+          <button class="small-btn" id="retakeBtn">Explore again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="gallerySection">
+  <div class="shell">
+    <div class="section-head">
+      <div><span class="kicker"><span class="dot"></span> The 8 money styles</span><h2 style="margin-top:12px">Eight different strengths. One smarter money journey.</h2></div>
+      <p>There is no best type here. Each style brings a different money superpower, plus one area that becomes stronger with practice.</p>
+    </div>
+    <div class="mascot-gallery" id="mascotGallery"></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="shell footer-card">
+    <div><strong style="color:var(--ink)">Fin-ACT Money Personality</strong><br>A practical money-behaviour experience for Fin-ACT.</div>
+    <div>Built for Fin-ACT workshops · Educational, practical, and non-judgmental. Famous-person references are mindset analogies based on public work and persona.</div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   DATA
+   Each answer contributes:
+   p = Planned (+) vs Reactive (-)
+   m = Growth/Enjoyment (+) vs Protective/Avoid (-)
+   type = direct subtype point used inside the final quadrant
+   tie = subtype tie-break signal inside that quadrant
+   ========================================================= */
+const QUESTIONS_12 = [{"q": "It’s the start of the month and your main money has just come in — salary, stipend, allowance, or freelance payment. What happens next?", "topic": "Start of the month", "a": [{"t": "I roughly split it into essentials, personal spending, and money for later.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "I first move a comfortable amount somewhere I will not casually spend it.", "p": 2, "m": -2, "type": "tortoise", "tie": -2}, {"t": "I put a fixed part toward a goal, SIP, course, or something I am building for.", "p": 2, "m": 2, "type": "beaver", "tie": -1}, {"t": "I cover what is needed now and let the rest of the month take shape naturally.", "p": -2, "m": 1, "type": "peacock", "tie": 1}]}, {"q": "A group plan suddenly comes up — a café, concert, college fest, or weekend outing. It sounds fun, but it was not planned.", "topic": "Social spending", "a": [{"t": "I quickly check what I can comfortably spend before saying yes.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "I look for a cheaper version of the plan so I can join without touching my safety money.", "p": 1, "m": -2, "type": "tortoise", "tie": -2}, {"t": "I am likely to go — good experiences are also worth spending on.", "p": -1, "m": 2, "type": "peacock", "tie": 1}, {"t": "If everyone is booking now, I may pay first and think about the budget later.", "p": -2, "m": -1, "type": "cheetah", "tie": 2}]}, {"q": "While paying online, you see a limited-time cashback or sale on something you had not planned to buy.", "topic": "Offers & impulse", "a": [{"t": "I check whether I actually needed it before looking at the discount.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "I usually leave it — saving the full amount feels better than saving 20% on an extra purchase.", "p": 1, "m": -2, "type": "tortoise", "tie": -2}, {"t": "I may explore it, especially if it is a new app, feature, or useful offer.", "p": -1, "m": 2, "type": "dolphin", "tie": 2}, {"t": "The countdown or “only 2 left” message can make me decide faster than usual.", "p": -2, "m": -1, "type": "cheetah", "tie": 2}]}, {"q": "A classmate or colleague mentions a new investment app and says, “Everyone is starting with just ₹500.”", "topic": "New money trends", "a": [{"t": "I first see whether it fits any goal I am already working toward.", "p": 2, "m": 2, "type": "beaver", "tie": -1}, {"t": "I compare returns, risk, fees, and what the product actually does.", "p": 1, "m": 2, "type": "fox", "tie": 2}, {"t": "I may try a small amount because I like learning by exploring new tools.", "p": -1, "m": 2, "type": "dolphin", "tie": 2}, {"t": "I save the post or message for later and may not come back to it soon.", "p": -2, "m": -2, "type": "ostrich", "tie": -2}]}, {"q": "Your phone or laptop needs replacing. At checkout, there is a “no-cost EMI / pay later” option.", "topic": "EMI decisions", "a": [{"t": "I compare the total cost, due dates, and whether the monthly payment fits comfortably.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "If possible, I would rather wait and buy after saving more of the amount.", "p": 1, "m": -2, "type": "tortoise", "tie": -2}, {"t": "I may use EMI if the purchase supports an important study, work, or long-term goal.", "p": 2, "m": 1, "type": "beaver", "tie": -1}, {"t": "If the deal ends tonight, I may take the EMI so I do not miss the price.", "p": -2, "m": -1, "type": "cheetah", "tie": 2}]}, {"q": "An unexpected ₹3,000 comes in — maybe a refund, incentive, gift, or small bonus.", "topic": "Unexpected money", "a": [{"t": "Most of it goes into my backup or savings money.", "p": 1, "m": -2, "type": "tortoise", "tie": -2}, {"t": "I add it to a goal I have already been building toward.", "p": 2, "m": 1, "type": "beaver", "tie": -1}, {"t": "I look for a sensible way to make part of it grow.", "p": 1, "m": 2, "type": "fox", "tie": 2}, {"t": "I use some of it for food, shopping, a hobby, or a small experience I will enjoy.", "p": -1, "m": 2, "type": "peacock", "tie": 1}]}, {"q": "A message says your bank or UPI account will be blocked unless you update KYC immediately through the link.", "topic": "Digital safety", "a": [{"t": "I open the official bank app or call an official number instead of using the link.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "I inspect the sender, link, wording, and details before doing anything.", "p": 1, "m": 1, "type": "fox", "tie": 2}, {"t": "The urgency may make me click or respond quickly so the account is not blocked.", "p": -2, "m": -2, "type": "cheetah", "tie": 2}, {"t": "I may ignore the whole message and deal with it only if something actually stops working.", "p": -2, "m": -2, "type": "ostrich", "tie": -2}]}, {"q": "One evening you notice several small auto-debits — OTT, cloud storage, apps, memberships, or subscriptions.", "topic": "Small recurring costs", "a": [{"t": "I check them one by one and cancel the ones I no longer use.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "I keep the ones that clearly support work, study, health, or a goal.", "p": 1, "m": 1, "type": "beaver", "tie": -1}, {"t": "I keep quite a few because I like having entertainment, convenience, and choices available.", "p": -1, "m": 2, "type": "peacock", "tie": 1}, {"t": "I notice them, think “I should sort this out,” and then move on to something else.", "p": -2, "m": -2, "type": "ostrich", "tie": -2}]}, {"q": "It is festive-sale season or you have a wedding/event coming up, and there are many things you could buy.", "topic": "Big spending moments", "a": [{"t": "I decide a total amount first and choose within that limit.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "I prefer buying fewer things if it means I do not disturb my savings buffer.", "p": 1, "m": -2, "type": "tortoise", "tie": -2}, {"t": "I give myself a fun-spending amount because these occasions are meant to be enjoyed.", "p": -1, "m": 2, "type": "peacock", "tie": 1}, {"t": "A strong discount can make me buy quickly, especially if stock looks limited.", "p": -2, "m": -1, "type": "cheetah", "tie": 2}]}, {"q": "Your WhatsApp group is suddenly full of talk about an IPO, crypto coin, stock tip, or “next big opportunity.”", "topic": "FOMO & investing", "a": [{"t": "I research the opportunity properly and compare the possible upside with the risk.", "p": 1, "m": 2, "type": "fox", "tie": 2}, {"t": "I only consider it if it fits the long-term amount I already set aside for growth.", "p": 2, "m": 2, "type": "beaver", "tie": -1}, {"t": "I may put in a very small amount just to understand how it works.", "p": -1, "m": 2, "type": "dolphin", "tie": 2}, {"t": "Too much finance talk makes me switch off; I would rather not deal with it right now.", "p": -2, "m": -2, "type": "ostrich", "tie": -2}]}, {"q": "A trip, move, course, exam fee, or family expense is likely three months from now.", "topic": "Future expense", "a": [{"t": "I break the amount into monthly targets and start setting it aside.", "p": 2, "m": 1, "type": "beaver", "tie": -1}, {"t": "I start keeping extra cash aside so the expense does not disturb my safety cushion.", "p": 2, "m": -2, "type": "tortoise", "tie": -2}, {"t": "I start comparing options, offers, and different ways to make the plan work.", "p": -1, "m": 2, "type": "dolphin", "tie": 2}, {"t": "Three months feels far away; I will probably deal with it once the date gets closer.", "p": -2, "m": -2, "type": "ostrich", "tie": -2}]}, {"q": "At the end of the month, around ₹800 is still sitting unused in your account or wallet.", "topic": "Month-end choices", "a": [{"t": "I move it into a planned category or next month’s budget.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "I add it to my emergency or backup savings.", "p": 1, "m": -2, "type": "tortoise", "tie": -2}, {"t": "I add it to an investment or future-growth bucket.", "p": 1, "m": 2, "type": "fox", "tie": 2}, {"t": "I may use it for a small treat because I managed the month without needing it.", "p": -1, "m": 2, "type": "peacock", "tie": 1}]}];
+const QUESTIONS_20 = [{"q": "It’s the start of the month and your main money has just come in — salary, stipend, allowance, or freelance payment. What happens next?", "topic": "Start of the month", "a": [{"t": "I roughly split it into essentials, personal spending, and money for later.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "I first move a comfortable amount somewhere I will not casually spend it.", "p": 2, "m": -2, "type": "tortoise", "tie": -2}, {"t": "I put a fixed part toward a goal, SIP, course, or something I am building for.", "p": 2, "m": 2, "type": "beaver", "tie": -1}, {"t": "I cover what is needed now and let the rest of the month take shape naturally.", "p": -2, "m": 1, "type": "peacock", "tie": 1}]}, {"q": "A group plan suddenly comes up — a café, concert, college fest, or weekend outing. It sounds fun, but it was not planned.", "topic": "Social spending", "a": [{"t": "I quickly check what I can comfortably spend before saying yes.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "I look for a cheaper version of the plan so I can join without touching my safety money.", "p": 1, "m": -2, "type": "tortoise", "tie": -2}, {"t": "I am likely to go — good experiences are also worth spending on.", "p": -1, "m": 2, "type": "peacock", "tie": 1}, {"t": "If everyone is booking now, I may pay first and think about the budget later.", "p": -2, "m": -1, "type": "cheetah", "tie": 2}]}, {"q": "While paying online, you see a limited-time cashback or sale on something you had not planned to buy.", "topic": "Offers & impulse", "a": [{"t": "I check whether I actually needed it before looking at the discount.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "I usually leave it — saving the full amount feels better than saving 20% on an extra purchase.", "p": 1, "m": -2, "type": "tortoise", "tie": -2}, {"t": "I may explore it, especially if it is a new app, feature, or useful offer.", "p": -1, "m": 2, "type": "dolphin", "tie": 2}, {"t": "The countdown or “only 2 left” message can make me decide faster than usual.", "p": -2, "m": -1, "type": "cheetah", "tie": 2}]}, {"q": "A classmate or colleague mentions a new investment app and says, “Everyone is starting with just ₹500.”", "topic": "New money trends", "a": [{"t": "I first see whether it fits any goal I am already working toward.", "p": 2, "m": 2, "type": "beaver", "tie": -1}, {"t": "I compare returns, risk, fees, and what the product actually does.", "p": 1, "m": 2, "type": "fox", "tie": 2}, {"t": "I may try a small amount because I like learning by exploring new tools.", "p": -1, "m": 2, "type": "dolphin", "tie": 2}, {"t": "I save the post or message for later and may not come back to it soon.", "p": -2, "m": -2, "type": "ostrich", "tie": -2}]}, {"q": "Your phone or laptop needs replacing. At checkout, there is a “no-cost EMI / pay later” option.", "topic": "EMI decisions", "a": [{"t": "I compare the total cost, due dates, and whether the monthly payment fits comfortably.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "If possible, I would rather wait and buy after saving more of the amount.", "p": 1, "m": -2, "type": "tortoise", "tie": -2}, {"t": "I may use EMI if the purchase supports an important study, work, or long-term goal.", "p": 2, "m": 1, "type": "beaver", "tie": -1}, {"t": "If the deal ends tonight, I may take the EMI so I do not miss the price.", "p": -2, "m": -1, "type": "cheetah", "tie": 2}]}, {"q": "An unexpected ₹3,000 comes in — maybe a refund, incentive, gift, or small bonus.", "topic": "Unexpected money", "a": [{"t": "Most of it goes into my backup or savings money.", "p": 1, "m": -2, "type": "tortoise", "tie": -2}, {"t": "I add it to a goal I have already been building toward.", "p": 2, "m": 1, "type": "beaver", "tie": -1}, {"t": "I look for a sensible way to make part of it grow.", "p": 1, "m": 2, "type": "fox", "tie": 2}, {"t": "I use some of it for food, shopping, a hobby, or a small experience I will enjoy.", "p": -1, "m": 2, "type": "peacock", "tie": 1}]}, {"q": "A message says your bank or UPI account will be blocked unless you update KYC immediately through the link.", "topic": "Digital safety", "a": [{"t": "I open the official bank app or call an official number instead of using the link.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "I inspect the sender, link, wording, and details before doing anything.", "p": 1, "m": 1, "type": "fox", "tie": 2}, {"t": "The urgency may make me click or respond quickly so the account is not blocked.", "p": -2, "m": -2, "type": "cheetah", "tie": 2}, {"t": "I may ignore the whole message and deal with it only if something actually stops working.", "p": -2, "m": -2, "type": "ostrich", "tie": -2}]}, {"q": "One evening you notice several small auto-debits — OTT, cloud storage, apps, memberships, or subscriptions.", "topic": "Small recurring costs", "a": [{"t": "I check them one by one and cancel the ones I no longer use.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "I keep the ones that clearly support work, study, health, or a goal.", "p": 1, "m": 1, "type": "beaver", "tie": -1}, {"t": "I keep quite a few because I like having entertainment, convenience, and choices available.", "p": -1, "m": 2, "type": "peacock", "tie": 1}, {"t": "I notice them, think “I should sort this out,” and then move on to something else.", "p": -2, "m": -2, "type": "ostrich", "tie": -2}]}, {"q": "It is festive-sale season or you have a wedding/event coming up, and there are many things you could buy.", "topic": "Big spending moments", "a": [{"t": "I decide a total amount first and choose within that limit.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "I prefer buying fewer things if it means I do not disturb my savings buffer.", "p": 1, "m": -2, "type": "tortoise", "tie": -2}, {"t": "I give myself a fun-spending amount because these occasions are meant to be enjoyed.", "p": -1, "m": 2, "type": "peacock", "tie": 1}, {"t": "A strong discount can make me buy quickly, especially if stock looks limited.", "p": -2, "m": -1, "type": "cheetah", "tie": 2}]}, {"q": "Your WhatsApp group is suddenly full of talk about an IPO, crypto coin, stock tip, or “next big opportunity.”", "topic": "FOMO & investing", "a": [{"t": "I research the opportunity properly and compare the possible upside with the risk.", "p": 1, "m": 2, "type": "fox", "tie": 2}, {"t": "I only consider it if it fits the long-term amount I already set aside for growth.", "p": 2, "m": 2, "type": "beaver", "tie": -1}, {"t": "I may put in a very small amount just to understand how it works.", "p": -1, "m": 2, "type": "dolphin", "tie": 2}, {"t": "Too much finance talk makes me switch off; I would rather not deal with it right now.", "p": -2, "m": -2, "type": "ostrich", "tie": -2}]}, {"q": "A trip, move, course, exam fee, or family expense is likely three months from now.", "topic": "Future expense", "a": [{"t": "I break the amount into monthly targets and start setting it aside.", "p": 2, "m": 1, "type": "beaver", "tie": -1}, {"t": "I start keeping extra cash aside so the expense does not disturb my safety cushion.", "p": 2, "m": -2, "type": "tortoise", "tie": -2}, {"t": "I start comparing options, offers, and different ways to make the plan work.", "p": -1, "m": 2, "type": "dolphin", "tie": 2}, {"t": "Three months feels far away; I will probably deal with it once the date gets closer.", "p": -2, "m": -2, "type": "ostrich", "tie": -2}]}, {"q": "At the end of the month, around ₹800 is still sitting unused in your account or wallet.", "topic": "Month-end choices", "a": [{"t": "I move it into a planned category or next month’s budget.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "I add it to my emergency or backup savings.", "p": 1, "m": -2, "type": "tortoise", "tie": -2}, {"t": "I add it to an investment or future-growth bucket.", "p": 1, "m": 2, "type": "fox", "tie": 2}, {"t": "I may use it for a small treat because I managed the month without needing it.", "p": -1, "m": 2, "type": "peacock", "tie": 1}]}, {"q": "You are ordering food or booking a cab and the app shows a coupon only if you spend a little more.", "topic": "Small spending nudges", "a": [{"t": "I compare the final amount and only add something if I actually need it.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "I would rather spend less overall than chase the coupon.", "p": 1, "m": -2, "type": "tortoise", "tie": -2}, {"t": "I may add something because the extra convenience or treat feels worth it.", "p": -1, "m": 2, "type": "peacock", "tie": 1}, {"t": "If the offer disappears in a few minutes, I may decide quickly.", "p": -2, "m": -1, "type": "cheetah", "tie": 2}]}, {"q": "You hear that a friend has started a side hustle or freelance gig and is earning extra each month.", "topic": "Extra income", "a": [{"t": "I think about whether I can build a realistic extra-income plan too.", "p": 2, "m": 2, "type": "beaver", "tie": -1}, {"t": "I explore different options and compare which one has the best upside for my skills.", "p": 1, "m": 2, "type": "fox", "tie": 2}, {"t": "I may try something small just to see what I enjoy and learn from it.", "p": -1, "m": 2, "type": "dolphin", "tie": 2}, {"t": "It sounds useful, but I may keep postponing the first step.", "p": -2, "m": -2, "type": "ostrich", "tie": -2}]}, {"q": "Your bank balance is lower than expected halfway through the month.", "topic": "Mid-month check", "a": [{"t": "I quickly check where the money went and adjust the rest of the month.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "I reduce optional spending so I do not touch the amount kept aside.", "p": 1, "m": -2, "type": "tortoise", "tie": -2}, {"t": "I look for ways to manage it without completely cancelling plans I value.", "p": -1, "m": 1, "type": "peacock", "tie": 1}, {"t": "I avoid checking too closely and hope the next few days stay manageable.", "p": -2, "m": -2, "type": "ostrich", "tie": -2}]}, {"q": "Someone offers you a credit card with rewards, lounge access, or cashback.", "topic": "Credit choices", "a": [{"t": "I check fees, due dates, limits, and whether I can pay the full bill each month.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "I am cautious about taking new credit unless I clearly need it.", "p": 1, "m": -2, "type": "tortoise", "tie": -2}, {"t": "I compare the rewards and see whether using it strategically could benefit me.", "p": 1, "m": 2, "type": "fox", "tie": 2}, {"t": "A strong joining offer may make me sign up before reading everything.", "p": -2, "m": -1, "type": "cheetah", "tie": 2}]}, {"q": "You have been saving for something for months, but a new opportunity comes up that could use the same money.", "topic": "Changing priorities", "a": [{"t": "I revisit the original goal and decide using clear priorities.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "I protect the saved amount unless the new need is genuinely important.", "p": 1, "m": -2, "type": "tortoise", "tie": -2}, {"t": "I compare which option may create more long-term value.", "p": 1, "m": 2, "type": "fox", "tie": 2}, {"t": "I am open to changing direction if the new opportunity feels exciting.", "p": -1, "m": 2, "type": "dolphin", "tie": 2}]}, {"q": "A cousin or friend asks to borrow a small amount and says they will return it next week.", "topic": "Money & relationships", "a": [{"t": "I decide an amount I can afford to give without affecting my own plan.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "I only lend from money that is not part of my safety reserve.", "p": 1, "m": -2, "type": "tortoise", "tie": -2}, {"t": "If I trust them, I may send it quickly because helping matters to me.", "p": -1, "m": 1, "type": "peacock", "tie": 1}, {"t": "I may delay replying because money conversations can feel awkward.", "p": -2, "m": -2, "type": "ostrich", "tie": -2}]}, {"q": "Your favourite creator shows a new gadget, course, or finance tool and says it changed their life.", "topic": "Influence", "a": [{"t": "I first ask whether it solves a problem I actually have.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "I research reviews, alternatives, and whether the value justifies the cost.", "p": 1, "m": 2, "type": "fox", "tie": 2}, {"t": "I enjoy discovering new things and may try a low-cost version first.", "p": -1, "m": 2, "type": "dolphin", "tie": 2}, {"t": "If there is a limited-time code, I can feel pressure to buy now.", "p": -2, "m": -1, "type": "cheetah", "tie": 2}]}, {"q": "You imagine yourself one year from now. Which money change would feel most satisfying?", "topic": "One-year picture", "a": [{"t": "Feeling organised and knowing exactly where my money is going.", "p": 2, "m": -1, "type": "owl", "tie": 2}, {"t": "Having a stronger emergency cushion and less financial worry.", "p": 1, "m": -2, "type": "tortoise", "tie": -2}, {"t": "Seeing clear progress in savings, investing, income, or a major goal.", "p": 2, "m": 2, "type": "beaver", "tie": -1}, {"t": "Having enough freedom to enjoy more experiences without feeling guilty.", "p": -1, "m": 2, "type": "peacock", "tie": 1}]}];
+let QUESTIONS = QUESTIONS_12;
+const PROFILES = {"owl": {"name": "Owl Planner", "tagline": "Plans first, spends later.", "quadrant": "Plan + Protect", "strength": "Organized, prepared, and thoughtful with money.", "blind": "You can over-plan, keep researching, or delay action while trying to make the perfect choice.", "habit": "Automate one savings transfer and put a monthly money review date on your calendar.", "examples": ["Salary arrives and you first split it into categories before spending.", "Before a large purchase, you compare options, check the budget, and prefer having a clear plan."], "accent": "#2F6FED", "soft": "#EAF1FF", "traits": ["Prepared", "Structured", "Cautious"]}, "tortoise": {"name": "Elephant Guardian", "tagline": "Strong base. Calm confidence.", "quadrant": "Plan + Protect", "strength": "Grounded, disciplined, and naturally good at protecting a financial safety cushion.", "blind": "Playing too safe can sometimes delay useful opportunities for long-term growth.", "habit": "Keep your safety cushion, then start one small and regular growth habit.", "examples": ["You feel more relaxed when some money is kept aside before you spend on optional things.", "You are comfortable saying no to a purchase if it would reduce the buffer you depend on."], "accent": "#16A34A", "soft": "#DDF7EC", "traits": ["Grounded", "Protective", "Steady"]}, "beaver": {"name": "Beaver Builder", "tagline": "Builds systems for long-term goals.", "quadrant": "Plan + Grow", "strength": "Disciplined, practical, and focused on building progress over time.", "blind": "Your system can become too rigid, making it harder to adapt when life changes.", "habit": "Use milestone-based money goals and review them every quarter.", "examples": ["You set a target for a course, home, business, or investment and break it into monthly steps.", "You prefer automatic transfers, trackers, and routines that keep your goals moving without daily effort."], "accent": "#F05519", "soft": "#FFF0E8", "traits": ["Systematic", "Long-term", "Committed"]}, "fox": {"name": "Fox Investor", "tagline": "Looks for smart growth opportunities.", "quadrant": "Plan + Grow", "strength": "Curious, analytical, and motivated to make money work harder over time.", "blind": "Confidence and curiosity can make you overestimate your skill or underestimate uncertainty.", "habit": "Diversify, and keep short-term money separate from long-term growth money.", "examples": ["You enjoy comparing investment choices, returns, fees, and different ways to grow money.", "When you hear about a promising opportunity, you research it, but you may still feel tempted to move faster than necessary."], "accent": "#8357E6", "soft": "#F1EBFF", "traits": ["Curious", "Analytical", "Growth-minded"]}, "peacock": {"name": "Peacock Enjoyer", "tagline": "Money is for living visibly.", "quadrant": "Reactive + Enjoy", "strength": "Expressive, generous with experiences, and good at enjoying the present.", "blind": "Lifestyle upgrades can quietly become permanent spending habits.", "habit": "Choose a guilt-free spending cap before the month begins.", "examples": ["A new restaurant, outfit, gadget, or trip can feel worth it because the experience matters to you now.", "As income rises, you may naturally upgrade your lifestyle without noticing how many new recurring costs appeared."], "accent": "#8357E6", "soft": "#F7EDFF", "traits": ["Expressive", "Present-focused", "Experience-led"]}, "dolphin": {"name": "Dolphin Explorer", "tagline": "Likes new tools and experiences.", "quadrant": "Reactive + Enjoy", "strength": "Adaptable, curious, and open to learning through trying new things.", "blind": "New apps, trends, and products can pull you in before you fully understand the details.", "habit": "Use a 24-hour pause before trying a new financial product or trend.", "examples": ["You are often among the first in your group to try a new payment, investing, or finance app.", "A trending money idea can feel exciting enough that you start exploring before checking all fees, risks, or terms."], "accent": "#2F6FED", "soft": "#E8F8F6", "traits": ["Curious", "Flexible", "Trend-aware"]}, "ostrich": {"name": "Ostrich Avoider", "tagline": "Delays money decisions.", "quadrant": "Reactive + Avoid", "strength": "You can stay calm in the moment instead of constantly worrying about every rupee.", "blind": "Bills, subscriptions, debt, or important decisions can build quietly when they stay out of sight.", "habit": "Do one 10-minute money check every week: balance, bills, and one next action.", "examples": ["You know you should review subscriptions, EMI details, or statements, but you keep telling yourself you will do it later.", "A financial message can feel uncomfortable enough that you postpone opening it until it becomes urgent."], "accent": "#6B7280", "soft": "#EEF3F8", "traits": ["Calm", "Delay-prone", "Low-attention"]}, "cheetah": {"name": "Cheetah Sprinter", "tagline": "Acts fast and decides fast.", "quadrant": "Reactive + Avoid", "strength": "Quick, decisive, and comfortable taking action when something needs to happen.", "blind": "Urgency can create impulse risk, especially with sales, messages, links, or financial pressure.", "habit": "Before an urgent money action, follow: Pause → Verify → Protect.", "examples": ["A flash-sale timer or 'last chance' message can push you to decide before you have compared alternatives.", "If a payment message looks urgent, your first instinct may be to act quickly rather than independently verify the request."], "accent": "#F59E0B", "soft": "#FFF2D7", "traits": ["Fast", "Decisive", "Urgency-sensitive"]}};
+
+const PROFILE_EXTRAS = {"owl": {"display": "Owl Strategist", "concept": "Planner style", "superpower": "Clarity before action", "summary": "You like money decisions to have a reason, a place, and a plan. Structure helps you feel confident rather than restricted.", "famous": {"name": "Rahul Dravid", "role": "Preparation mindset", "note": "A useful analogy for the Owl strength: preparation, patience, and doing the basics consistently before the pressure arrives.", "initials": "RD"}, "levelup": ["Automate one transfer on the day money comes in.", "Give yourself a decision deadline so planning does not become delay.", "Keep one flexible spending bucket so the plan can breathe."], "month": ["Set 3 money buckets", "Automate 1 transfer", "Do 1 month-end review"]}, "tortoise": {"display": "Elephant Guardian", "concept": "Guardian style", "superpower": "Creating a strong safety base", "summary": "You value stability and a solid safety cushion. Your money style is grounded, dependable, and built to handle surprises without panic.", "famous": {"name": "Sudha Murty", "role": "Simplicity mindset", "note": "A useful analogy for the Guardian strength: simplicity, restraint, and remembering that more spending does not automatically mean more value.", "initials": "SM"}, "levelup": ["Give your safety fund a clear target instead of saving without an endpoint.", "Once the target is healthy, start one small monthly growth habit.", "Keep a planned enjoyment amount so security does not become unnecessary restriction."], "month": ["Set a safety target", "Start a ₹500 growth habit", "Create guilt-free fun money"]}, "beaver": {"display": "Beaver Builder", "concept": "Builder style", "superpower": "Turning goals into systems", "summary": "You like progress you can see. When a goal matters, you are comfortable building routines, milestones, and repeatable money systems around it.", "famous": {"name": "Ratan Tata", "role": "Long-term builder mindset", "note": "A useful analogy for the Builder strength: creating for the long term, improving systems, and taking calculated risks without losing the bigger purpose.", "initials": "RT"}, "levelup": ["Turn one big goal into a monthly number.", "Review milestones every 90 days instead of checking constantly.", "Keep a small flexibility buffer for unexpected changes."], "month": ["Pick 1 big goal", "Create monthly milestones", "Review progress once"]}, "fox": {"display": "Fox Investor", "concept": "Growth style", "superpower": "Seeing smart opportunities", "summary": "You enjoy understanding how money can work harder. Curiosity, comparison, and calculated growth are naturally energising for you.", "famous": {"name": "Warren Buffett", "role": "Long-term investing mindset", "note": "A useful analogy for the Fox strength: understand what you are buying, ignore market noise, and think in years rather than in hype cycles.", "initials": "WB"}, "levelup": ["Separate emergency money from investment money.", "Write down why you are entering an investment before you enter it.", "Use diversification as a rule, not an afterthought."], "month": ["Separate money buckets", "Research before buying", "Review diversification"]}, "peacock": {"display": "Peacock Curator", "concept": "Enjoyment style", "superpower": "Making money meaningful now", "summary": "You see money as a tool for experiences, expression, people, and a life that feels enjoyable in the present, not only someday in the future.", "famous": {"name": "Shah Rukh Khan", "role": "Expression & brand mindset", "note": "A useful analogy for the Peacock strength: bold self-expression, creating memorable experiences, and treating personal style as something worth shaping intentionally.", "initials": "SRK"}, "levelup": ["Create a monthly guilt-free fun amount before spending begins.", "Wait one day before lifestyle upgrades that create recurring costs.", "Spend more on the experiences you value and less on invisible leakage."], "month": ["Set fun-money limit", "Pause on upgrades", "Cut 1 low-value expense"]}, "dolphin": {"display": "Dolphin Explorer", "concept": "Explorer style", "superpower": "Learning through curiosity", "summary": "You are open to new tools, new experiences, and new ways of handling money. You learn quickly because you are willing to explore.", "famous": {"name": "A. R. Rahman", "role": "Experimentation mindset", "note": "A useful analogy for the Explorer strength: keep learning, use new technology thoughtfully, and experiment without losing your core craft.", "initials": "ARR"}, "levelup": ["Use a 24-hour pause before joining a new financial trend.", "Test new tools with a small amount first.", "Check fees, privacy, and exit rules before tapping 'continue'."], "month": ["Try only 1 new tool", "Use the 24-hour rule", "Check fees & privacy"]}, "ostrich": {"display": "Ostrich Reset", "concept": "Reset style", "superpower": "Staying calm when money feels noisy", "summary": "You do not want money to take over your headspace. Your superpower is staying calm; your upgrade is turning that calm into small, regular check-ins.", "famous": {"name": "MS Dhoni", "role": "Calm-under-pressure mindset", "note": "A useful analogy for the Reset strength: stay composed when things get noisy. Then use that calm to make the next small decision instead of leaving it for later.", "initials": "MSD"}, "levelup": ["Do one 10-minute money check every week.", "Open the uncomfortable message or statement and choose only one next action.", "Automate recurring essentials so fewer decisions pile up."], "month": ["10-min weekly check", "Resolve 1 pending task", "Automate 1 essential"]}, "cheetah": {"display": "Cheetah Sprinter", "concept": "Action style", "superpower": "Moving when others hesitate", "summary": "You bring speed, energy, and decisiveness to money moments. Your advantage becomes even stronger when speed is paired with one quick verification step.", "famous": {"name": "Virat Kohli", "role": "Intensity & action mindset", "note": "A useful analogy for the Sprinter strength: bring energy, commitment, and decisiveness. The upgrade is knowing when one extra pause improves the decision.", "initials": "VK"}, "levelup": ["Use Pause → Verify → Protect before urgent payments or links.", "For purchases above your personal limit, sleep on it once.", "Keep one trusted source or person for a quick second check."], "month": ["Use pause-verify-protect", "Set a pause limit", "Choose 1 trusted checker"]}};
+
+const TYPE_PAIRS = {
+  "Plan + Protect":["owl","tortoise"],
+  "Plan + Grow":["beaver","fox"],
+  "Reactive + Enjoy":["peacock","dolphin"],
+  "Reactive + Avoid":["ostrich","cheetah"]
+};
+
+const state = {
+  current:0,
+  answers:Array(QUESTIONS.length).fill(null),
+  result:null,
+  participantId:null,
+  selfType:null,
+  desiredType:null,
+  selfQuadrant:null,
+  desiredQuadrant:null,
+  openingMode:"current",
+  openingQuadrant:null,
+  quizLength:12
+};
+
+const $ = sel => document.querySelector(sel);
+const els = {
+  quiz:$("#quizSection"), result:$("#resultSection"), gallery:$("#gallerySection"),
+  qText:$("#questionText"), qTopic:$("#questionTopic"), answers:$("#answers"),
+  meta:$("#progressMeta"), fill:$("#progressFill"), prev:$("#prevBtn"), next:$("#nextBtn")
+};
+
+
+function setQuestionSet(length){
+  state.quizLength = Number(length)===20 ? 20 : 12;
+  QUESTIONS = state.quizLength===20 ? QUESTIONS_20 : QUESTIONS_12;
+}
+
+function uid(){
+  return "FA-" + Date.now().toString(36).toUpperCase() + "-" + Math.random().toString(36).slice(2,6).toUpperCase();
+}
+
+/* =========================================================
+   INLINE MASCOTS
+   These SVGs are deliberately simple, export-friendly placeholders.
+   Replace the function output later with <img> tags if final artwork
+   is commissioned. The UI will continue to work unchanged.
+   ========================================================= */
+function mascotSVG(type, large=false){
+  const p = PROFILES[type];
+  const c = p.accent;
+  const ink = "#111216";
+  const white = "#FFFFFF";
+  const stroke = `stroke="${ink}" stroke-width="${large?5:4}" stroke-linecap="round" stroke-linejoin="round"`;
+  const base = (inner) => `<svg viewBox="0 0 260 260" role="img" aria-label="${p.name} mascot">
+    <circle cx="130" cy="132" r="105" fill="${p.soft}"/>
+    ${inner}
+  </svg>`;
+
+  const eyes = (x1,y1,x2,y2) => `<circle cx="${x1}" cy="${y1}" r="5" fill="${ink}"/><circle cx="${x2}" cy="${y2}" r="5" fill="${ink}"/>`;
+
+  if(type==="owl") return base(`
+    <path d="M77 88 92 48l28 27M183 88l-15-40-28 27" fill="${c}" ${stroke}/>
+    <ellipse cx="130" cy="124" rx="65" ry="69" fill="${c}" ${stroke}/>
+    <ellipse cx="101" cy="111" rx="26" ry="29" fill="${white}" ${stroke}/>
+    <ellipse cx="159" cy="111" rx="26" ry="29" fill="${white}" ${stroke}/>
+    ${eyes(103,112,157,112)}
+    <path d="m130 122-12 13h24z" fill="#F05519" ${stroke}/>
+    <path d="M103 161h55v54h-55z" fill="${white}" ${stroke}/>
+    <path d="M113 176h34M113 188h25" ${stroke} fill="none"/>
+    <path d="M80 146c15 8 23 18 28 33M180 146c-15 8-23 18-28 33" ${stroke} fill="none"/>
+  `);
+
+  if(type==="tortoise") return base(`
+    <ellipse cx="130" cy="145" rx="66" ry="58" fill="#8BDDB4" ${stroke}/>
+    <circle cx="130" cy="101" r="47" fill="${c}" ${stroke}/>
+    <path d="M94 93c-27-22-43 0-28 27 9 15 26 18 39 7M166 93c27-22 43 0 28 27-9 15-26 18-39 7" fill="#A7E8C8" ${stroke}/>
+    ${eyes(113,96,147,96)}
+    <path d="M130 110c0 25 0 42 13 53 10 8 24 4 27-9" fill="none" ${stroke}/>
+    <path d="M110 119q20 14 40 0" fill="none" ${stroke}/>
+    <path d="M88 181v38M115 187v34M145 187v34M172 181v38" fill="none" ${stroke}/>
+    <path d="M173 146c18 3 30 14 34 29" fill="none" ${stroke}/>
+    <path d="M61 146l20-16 19 12-5 28H66z" fill="${white}" ${stroke}/>
+    <path d="M74 144h13M80.5 137v14" ${stroke}/>
+  `);
+
+  if(type==="beaver") return base(`
+    <ellipse cx="130" cy="130" rx="62" ry="68" fill="#B86D3D" ${stroke}/>
+    <ellipse cx="95" cy="82" rx="20" ry="25" fill="#A35F37" ${stroke}/>
+    <ellipse cx="165" cy="82" rx="20" ry="25" fill="#A35F37" ${stroke}/>
+    <ellipse cx="130" cy="143" rx="40" ry="34" fill="#E7A77D" ${stroke}/>
+    ${eyes(109,119,151,119)}
+    <path d="M118 142h24v23h-24z" fill="${white}" ${stroke}/>
+    <path d="M130 142v23" ${stroke}/>
+    <path d="M78 196h104l-8 28H86z" fill="#F05519" ${stroke}/>
+    <path d="M92 196v-22h26v22M118 196v-42h26v42M144 196v-61h26v61" fill="${c}" ${stroke}/>
+  `);
+
+  if(type==="fox") return base(`
+    <path d="M74 83 90 38l43 37M186 83l-16-45-43 37" fill="#F47B38" ${stroke}/>
+    <path d="M72 100q58-55 116 0l-19 75-39 30-39-30z" fill="#F47B38" ${stroke}/>
+    <path d="M84 99q30 12 46 40 16-28 46-40l-12 56-34 28-34-28z" fill="${white}" ${stroke}/>
+    ${eyes(103,120,157,120)}
+    <path d="m130 137-10 9h20z" fill="${ink}"/>
+    <rect x="158" y="159" width="53" height="58" rx="10" fill="${c}" ${stroke}/>
+    <path d="m169 196 10-11 8 7 13-20" fill="none" stroke="${white}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  `);
+
+  if(type==="peacock") return base(`
+    <path d="M130 55c-56-40-86 3-62 44-50-4-57 45-18 62-31 35 9 72 45 49 8 42 62 42 70 0 37 23 77-14 46-49 39-17 32-66-18-62 24-41-6-84-63-44z" fill="#17A7A1" opacity=".95" ${stroke}/>
+    <circle cx="74" cy="88" r="10" fill="#FFC845"/><circle cx="187" cy="88" r="10" fill="#FFC845"/>
+    <circle cx="64" cy="154" r="10" fill="#8357E6"/><circle cx="197" cy="154" r="10" fill="#8357E6"/>
+    <ellipse cx="130" cy="145" rx="42" ry="66" fill="${c}" ${stroke}/>
+    <circle cx="130" cy="90" r="30" fill="#5D43B6" ${stroke}/>
+    ${eyes(121,89,139,89)}
+    <path d="m130 99-9 9h18z" fill="#FFC845" ${stroke}/>
+    <path d="M119 57l-8-18M130 55V34M141 57l9-18" fill="none" ${stroke}/>
+  `);
+
+  if(type==="dolphin") return base(`
+    <path d="M58 151c18-69 86-91 137-59 15 9 26 25 30 45-17-8-31-6-45 5-13 11-28 21-47 24-28 5-52-1-75-15z" fill="${c}" ${stroke}/>
+    <path d="M87 114c22 5 46 4 67-7" fill="none" stroke="${white}" stroke-width="5" stroke-linecap="round"/>
+    ${eyes(170,106,170,106)}
+    <path d="M184 121q15 5 25-1" fill="none" ${stroke}/>
+    <path d="M84 151c-15 14-22 32-18 52l34-31M94 95 72 70M79 75l-23 9" fill="none" ${stroke}/>
+    <rect x="121" y="171" width="65" height="42" rx="12" fill="#DDF7EC" ${stroke}/>
+    <path d="M135 194l11-11 9 8 16-14" fill="none" ${stroke}/>
+  `);
+
+  if(type==="ostrich") return base(`
+    <ellipse cx="113" cy="158" rx="61" ry="48" fill="#AAB2BD" ${stroke}/>
+    <path d="M140 141c11-48 10-78 33-95 20-14 42-2 43 18 1 19-17 30-33 25-9 20-5 44 0 65" fill="#C8D0D8" ${stroke}/>
+    <circle cx="189" cy="62" r="5" fill="${ink}"/>
+    <path d="m207 66 21 5-20 8" fill="#F0B15C" ${stroke}/>
+    <path d="M71 194 54 221M140 198l10 25" fill="none" ${stroke}/>
+    <path d="M74 141q31 28 65 4" fill="none" ${stroke}/>
+    <rect x="44" y="88" width="58" height="46" rx="9" fill="${white}" ${stroke}/>
+    <path d="M56 104h34M56 117h24" fill="none" ${stroke}/>
+  `);
+
+  if(type==="cheetah") return base(`
+    <ellipse cx="128" cy="127" rx="57" ry="61" fill="#F6BD38" ${stroke}/>
+    <path d="M83 85 74 49l34 24M172 85l11-36-34 24" fill="#F6BD38" ${stroke}/>
+    ${eyes(108,113,150,113)}
+    <path d="m129 128-10 9h20z" fill="${ink}"/>
+    <path d="M103 148q26 18 52 0" fill="none" ${stroke}/>
+    <circle cx="100" cy="93" r="6" fill="#8D5A1E"/><circle cx="153" cy="91" r="6" fill="#8D5A1E"/><circle cx="93" cy="132" r="6" fill="#8D5A1E"/><circle cx="165" cy="132" r="6" fill="#8D5A1E"/>
+    <path d="M88 178 55 205M167 178l34 25M104 188l-7 38M151 188l9 38" fill="none" ${stroke}/>
+    <rect x="161" y="157" width="54" height="67" rx="11" fill="#EF4444" ${stroke}/>
+    <path d="M177 177h22M177 190h22" fill="none" stroke="${white}" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="188" cy="210" r="7" fill="${white}"/>
+  `);
+  return "";
+}
+
+/* =========================================================
+   QUIZ RENDERING
+   ========================================================= */
+function renderQuestion(){
+  const q = QUESTIONS[state.current];
+  els.qText.textContent = q.q;
+  els.qTopic.textContent = q.topic;
+  els.meta.textContent = `Money Moment ${state.current+1} of ${QUESTIONS.length}`;
+  els.fill.style.width = `${((state.current+1)/QUESTIONS.length)*100}%`;
+  els.answers.innerHTML = "";
+
+  q.a.forEach((ans,i)=>{
+    const b = document.createElement("button");
+    b.className = "answer" + (state.answers[state.current]===i ? " selected":"");
+    b.innerHTML = `<span class="answer-letter">${String.fromCharCode(65+i)}</span><span>${ans.t}</span>`;
+    b.addEventListener("click",()=>{
+      state.answers[state.current]=i;
+      saveProgress();
+      renderQuestion();
+    });
+    els.answers.appendChild(b);
+  });
+
+  els.prev.disabled = state.current===0;
+  els.prev.style.opacity = state.current===0 ? .45 : 1;
+  els.next.textContent = state.current===QUESTIONS.length-1 ? "Reveal my money profile →" : "Next →";
+}
+
+function startQuiz(fresh=true){
+  if(fresh){
+    state.current=0;
+    state.answers=Array(QUESTIONS.length).fill(null);
+    state.result=null;
+    state.participantId=state.participantId || uid();
+    saveProgress();
+  }
+  els.quiz.classList.remove("hidden");
+  els.result.classList.add("hidden");
+  renderQuestion();
+  els.quiz.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function saveProgress(){
+  let previous={};
+  try{ previous=JSON.parse(localStorage.getItem("finact_money_personality")||"{}"); }catch(e){}
+  localStorage.setItem("finact_money_personality", JSON.stringify({
+    current:state.current, answers:state.answers, result:state.result,
+    participantId:state.participantId || (state.participantId=uid()), selfType:state.selfType, desiredType:state.desiredType, selfQuadrant:state.selfQuadrant, desiredQuadrant:state.desiredQuadrant, openingMode:state.openingMode, openingQuadrant:state.openingQuadrant, quizLength:state.quizLength,
+    commitment:previous.commitment||"",
+    savedAt:new Date().toISOString()
+  }));
+}
+
+function loadProgress(){
+  try{
+    const saved = JSON.parse(localStorage.getItem("finact_money_personality")||"null");
+    if(!saved || !Array.isArray(saved.answers)) return false;
+    state.openingMode = saved.openingMode || "current";
+    state.openingQuadrant = saved.openingQuadrant || saved.selfQuadrant || saved.desiredQuadrant || null;
+    setQuestionSet(saved.quizLength || (saved.answers.length===20 ? 20 : 12));
+    state.current = Math.min(saved.current||0, QUESTIONS.length-1);
+    state.answers = saved.answers.slice(0,QUESTIONS.length);
+    while(state.answers.length<QUESTIONS.length) state.answers.push(null);
+    state.result = saved.result||null;
+    state.participantId = saved.participantId||uid();
+    state.selfType = saved.selfType||null;
+    state.desiredType = saved.desiredType||null;
+    state.selfQuadrant = saved.selfQuadrant||null;
+    state.desiredQuadrant = saved.desiredQuadrant||null;
+    return true;
+  }catch(e){return false}
+}
+
+/* =========================================================
+   SCORING
+   1) Sum the two axes.
+   2) Axis signs select one of the four quadrants.
+   3) Inside that quadrant, count direct subtype choices.
+   4) If tied, use the answer-level tie signal.
+   5) If still tied, use axis intensity as a deterministic fallback.
+   ========================================================= */
+function scoreQuiz(){
+  let p=0,m=0,pTie=0,mTie=0,tie={};
+  const typeScores={owl:0,tortoise:0,beaver:0,fox:0,peacock:0,dolphin:0,ostrich:0,cheetah:0};
+  Object.keys(typeScores).forEach(k=>tie[k]=0);
+
+  state.answers.forEach((pick,qi)=>{
+    if(pick===null) return;
+    const a=QUESTIONS[qi].a[pick];
+    p += a.p; m += a.m; pTie += a.pt || 0; mTie += a.mt || 0;
+    typeScores[a.type] += 2;
+    tie[a.type] += a.tie || 0;
+  });
+
+  // Exact-zero axis values are resolved consistently by the branch order below,
+  // while subtype ties use the explicit tie-break rules that follow.
+  // If an axis lands exactly on zero, the weighted core-question
+  // tie score decides the direction. A final zero uses a fixed,
+  // documented fallback so identical responses always match.
+  const pDir = p!==0 ? p : (pTie!==0 ? pTie : 1);
+  const mDir = m!==0 ? m : (mTie!==0 ? mTie : -1);
+
+  let quadrant;
+  if(pDir>0 && mDir<0) quadrant="Plan + Protect";
+  else if(pDir>0 && mDir>0) quadrant="Plan + Grow";
+  else if(pDir<0 && mDir>0) quadrant="Reactive + Enjoy";
+  else quadrant="Reactive + Avoid";
+
+  const [a,b] = TYPE_PAIRS[quadrant];
+  let winner;
+  if(typeScores[a] > typeScores[b]) winner=a;
+  else if(typeScores[b] > typeScores[a]) winner=b;
+  else if(tie[a] > tie[b]) winner=a;
+  else if(tie[b] > tie[a]) winner=b;
+  else {
+    // Final deterministic fallback based on style intensity.
+    // More "structured / reserved" picks favor first member in planned quadrants;
+    // more "speed / exploration" favors second member in reactive quadrants.
+    if(quadrant==="Plan + Protect") winner = Math.abs(m) >= Math.abs(p) ? "tortoise":"owl";
+    if(quadrant==="Plan + Grow") winner = Math.abs(m) > Math.abs(p) ? "fox":"beaver";
+    if(quadrant==="Reactive + Enjoy") winner = Math.abs(p) > Math.abs(m) ? "dolphin":"peacock";
+    if(quadrant==="Reactive + Avoid") winner = Math.abs(p) > Math.abs(m) ? "cheetah":"ostrich";
+  }
+
+  return {type:winner, quadrant, planScore:p, motiveScore:m, planTie:pTie, motiveTie:mTie, typeScores, tieScores:tie};
+}
+
+function clamp(n,min,max){return Math.max(min,Math.min(max,n))}
+function normalizedAxis(raw){
+  // Each answer ranges approximately -2..+2. Normalize dynamically for 12 money moments.
+  const max=Math.max(1, QUESTIONS.length*2);
+  return Math.round(clamp((raw + max) / (max*2) * 100, 0, 100));
+}
+
+function showResult(){
+  if(state.answers.some(v=>v===null)){
+    toast("Please choose an answer before continuing.");
+    return;
+  }
+  state.result=scoreQuiz();
+  saveProgress();
+  const r=state.result, p=PROFILES[r.type], ex=PROFILE_EXTRAS[r.type];
+  const card=$("#resultCard");
+  $("#resultTitle").textContent=ex.display;
+  $("#superpowerBadge").textContent="✦ Money superpower: "+ex.superpower;
+  $("#profileSummary").textContent=ex.summary;
+
+  const openingQ=state.openingQuadrant||r.quadrant;
+  const growthQ=state.openingMode==="aspire" ? openingQ : r.quadrant;
+  const targetPair=TYPE_PAIRS[growthQ];
+
+  $("#openingChoiceLabel").textContent = state.openingMode==="current"
+    ? "You felt this was like you"
+    : "You wanted to grow toward";
+  $("#openingChoiceName").textContent=QUADRANT_CHOICES[openingQ].short;
+  $("#actualChoiceLabel").textContent=`Your ${QUESTIONS.length} money moments point to`;
+  $("#actualResultName").textContent=ex.display;
+
+  $("#openingChoiceMini").innerHTML=`<span class="quad-chip" style="background:${QUADRANT_CHOICES[openingQ].soft};color:${QUADRANT_CHOICES[openingQ].accent}">${QUADRANT_CHOICES[openingQ].words.join(" · ")}</span>`;
+  $("#actualResultMini").innerHTML=mascotSVG(r.type)+`<span>${ex.superpower}</span>`;
+
+  $("#growthMascot").innerHTML=`<div class="target-mascots">${mascotSVG(targetPair[0],true)}${mascotSVG(targetPair[1],true)}</div>`;
+
+  if(state.openingMode==="aspire"){
+    $("#growthTitle").textContent=`How to move toward ${QUADRANT_CHOICES[growthQ].short}`;
+    $("#growthIntro").textContent = growthQ===r.quadrant
+      ? "The direction you chose is already close to your natural pattern. These habits can make it more intentional."
+      : `Keep your ${ex.display} strengths. Add these habits when you want more ${QUADRANT_CHOICES[growthQ].words.join(" + ").toLowerCase()}.`;
+  }else{
+    $("#growthTitle").textContent=`Make your ${ex.display} style work even better`;
+    $("#growthIntro").textContent = openingQ===r.quadrant
+      ? "Your self-view and your scenario choices are closely aligned. These habits can strengthen the useful side of your style."
+      : "Your scenario choices showed a slightly different pattern from your first instinct. That is normal; use these habits to strengthen the style your choices revealed.";
+  }
+  $("#growthList").innerHTML=QUADRANT_GROWTH[growthQ].map((x,i)=>`<div class="growth-step"><div class="gnum">${i+1}</div><strong>${x}</strong></div>`).join("");
+
+  $("#famousAvatar").textContent=ex.famous.initials;
+  $("#famousName").textContent=ex.famous.name;
+  $("#famousRole").textContent=ex.famous.role;
+  $("#famousNote").textContent=ex.famous.note;
+
+  $("#monthPlanTitle").textContent=`Make your ${ex.display} superpower work harder`;
+  $("#monthPlanGrid").innerHTML=ex.month.map((x,i)=>`<div class="month-step"><span>Week ${i+1}</span><strong>${x}</strong></div>`).join("");
+
+  card.style.setProperty("--result",p.accent);
+  card.style.setProperty("--result-soft",p.soft);
+
+  $("#resultMascot").innerHTML=mascotSVG(r.type,true);
+  // Display title is set from PROFILE_EXTRAS above.
+  $("#resultTagline").textContent=styleTagline(r.type);
+  $("#quadrantPill").textContent=quadrantDisplay(p.quadrant);
+  $("#strengthText").textContent=p.strength;
+  $("#blindText").textContent=p.blind;
+  $("#habitText").textContent=p.habit;
+  $("#examplesList").innerHTML=p.examples.map(x=>`<li>${x}</li>`).join("");
+  $("#traitRow").innerHTML=p.traits.map(x=>`<span class="trait">${x}</span>`).join("");
+
+  const planPct=normalizedAxis(r.planScore);
+  const motivePct=normalizedAxis(r.motiveScore);
+  $("#planPct").textContent=planPct+"%";
+  $("#motivePct").textContent=motivePct+"%";
+  $("#planBar").style.width=planPct+"%";
+  $("#motiveBar").style.width=motivePct+"%";
+
+  // x maps protect/avoid -> growth/enjoy; y maps planned -> reactive
+  $("#mapDot").style.left = `${10 + motivePct*.8}%`;
+  $("#mapDot").style.top = `${90 - planPct*.8}%`;
+
+  const saved=JSON.parse(localStorage.getItem("finact_money_personality")||"{}");
+  $("#commitmentInput").value=saved.commitment||"";
+
+  els.quiz.classList.add("hidden");
+  els.result.classList.remove("hidden");
+  els.result.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function buildExport(){
+  const r=state.result||scoreQuiz();
+  const p=PROFILES[r.type];
+  return {
+    participant_id: state.participantId || (state.participantId=uid()),
+    experience_completed: !state.answers.some(v=>v===null),
+    personality_result: PROFILE_EXTRAS[r.type].display,
+    original_personality_concept: p.name,
+    quadrant: p.quadrant,
+    quadrant_display: quadrantDisplay(p.quadrant),
+    opening_choice_mode: state.openingMode,
+    opening_quadrant: state.openingQuadrant || null,
+    opening_statement: state.openingQuadrant ? QUADRANT_CHOICES[state.openingQuadrant].title : null,
+    money_moments_completed: QUESTIONS.length,
+    growth_quadrant: state.openingMode==="aspire" ? state.openingQuadrant : p.quadrant,
+    growth_actions: QUADRANT_GROWTH[state.openingMode==="aspire" ? (state.openingQuadrant||p.quadrant) : p.quadrant],
+    primary_traits: p.traits,
+    axis_scores: {
+      planned_vs_reactive_raw:r.planScore,
+      protective_vs_growth_enjoyment_raw:r.motiveScore
+    },
+    commitment_text: $("#commitmentInput")?.value?.trim() || "",
+    submitted_at: new Date().toISOString()
+  };
+}
+
+function downloadText(filename,text,type="application/json"){
+  const blob=new Blob([text],{type});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");a.href=url;a.download=filename;a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),500);
+}
+
+function downloadResultCard(){
+  const r=state.result, p=PROFILES[r.type], ex=PROFILE_EXTRAS[r.type];
+  const commitment=$("#commitmentInput").value.trim() || "Choose one small money habit this month.";
+  const safe=(s)=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+    <rect width="1200" height="720" rx="42" fill="#FFFFFF"/>
+    <rect x="0" y="0" width="380" height="720" rx="42" fill="${p.soft}"/>
+    <circle cx="190" cy="230" r="155" fill="${p.accent}" opacity=".10"/>
+    <g transform="translate(60 85) scale(1.0)">${mascotSVG(r.type,true).replace(/<svg[^>]*>|<\/svg>/g,"")}</g>
+    <text x="430" y="92" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="${p.accent}">FIN-ACT MONEY PERSONALITY</text>
+    <text x="430" y="165" font-family="Arial,sans-serif" font-size="54" font-weight="800" fill="#111216">${safe(ex.display)}</text>
+    <text x="430" y="208" font-family="Arial,sans-serif" font-size="25" fill="#5C626D">${safe(styleTagline(r.type))}</text>
+    <rect x="430" y="240" width="210" height="42" rx="21" fill="#111216"/>
+    <text x="535" y="268" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">${safe(quadrantDisplay(p.quadrant))}</text>
+    <text x="430" y="345" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#5C626D">YOUR MONEY SUPERPOWER</text>
+    <foreignObject x="430" y="360" width="690" height="100"><div xmlns="http://www.w3.org/1999/xhtml" style="font:700 24px Arial;color:#111216;line-height:1.35">${safe(ex.superpower)}</div></foreignObject>
+    <rect x="430" y="480" width="690" height="145" rx="24" fill="${p.soft}"/>
+    <text x="460" y="520" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="${p.accent}">MY FIN-ACT COMMITMENT</text>
+    <foreignObject x="460" y="540" width="630" height="65"><div xmlns="http://www.w3.org/1999/xhtml" style="font:700 23px Arial;color:#111216;line-height:1.35">${safe(commitment)}</div></foreignObject>
+    <text x="430" y="670" font-family="Arial,sans-serif" font-size="15" fill="#5C626D">Fin-ACT workshop profile · Educational, not financial advice</text>
+  </svg>`;
+  downloadText(`Fin-ACT-${ex.display.replace(/\s+/g,"-")}-Profile.svg`,svg,"image/svg+xml");
+}
+
+function saveCommitment(){
+  const saved=JSON.parse(localStorage.getItem("finact_money_personality")||"{}");
+  saved.commitment=$("#commitmentInput").value.trim();
+  saved.savedAt=new Date().toISOString();
+  localStorage.setItem("finact_money_personality",JSON.stringify(saved));
+  toast("Commitment saved on this device.");
+}
+
+function toast(msg){
+  const t=$("#toast");t.textContent=msg;t.classList.add("show");
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer=setTimeout(()=>t.classList.remove("show"),2200);
+}
+
+/* =========================================================
+   GALLERY + PROMPTS
+   ========================================================= */
+function renderGallery(){
+  const gallery=$("#mascotGallery");
+  gallery.innerHTML="";
+  Object.entries(PROFILES).forEach(([key,p])=>{
+    const card=document.createElement("article");
+    card.className="mascot-card";
+    card.innerHTML=`<div class="mascot-visual" style="background:${p.soft}">${mascotSVG(key)}</div>
+      <h3>${PROFILE_EXTRAS[key].display}</h3><p>${PROFILE_EXTRAS[key].superpower}</p><div class="accent-line" style="background:${p.accent}"></div>`;
+    gallery.appendChild(card);
+  });
+}
+
+
+/* =========================================================
+   OPENING CHOICE
+   One broad quadrant only. Participant chooses whether that
+   quadrant describes "me today" or "where I want to grow".
+   They also choose 12 or 20 money moments; default is 12.
+   ========================================================= */
+
+function styleTagline(type){
+  return ({
+    owl:"Clear plan. Calm moves.",
+    tortoise:"Strong base. Calm confidence.",
+    beaver:"Build it once. Grow it steadily.",
+    fox:"Curious mind. Calculated growth.",
+    peacock:"Enjoy today. Choose what matters.",
+    dolphin:"Explore smart. Learn fast.",
+    ostrich:"Stay calm. Reset one step at a time.",
+    cheetah:"Move fast. Verify faster."
+  })[type] || PROFILES[type].tagline;
+}
+
+function quadrantDisplay(q){
+  return ({
+    "Plan + Protect":"Plan + Secure",
+    "Plan + Grow":"Plan + Grow",
+    "Reactive + Enjoy":"Flexible + Enjoy",
+    "Reactive + Avoid":"Flexible + Simple"
+  })[q] || q;
+}
+
+const QUADRANT_CHOICES = {
+  "Plan + Protect":{
+    title:"I plan ahead and like feeling secure",
+    short:"Plan + Secure",
+    words:["Plan ahead","Safety"],
+    description:"I feel better when money is organised and I have something kept aside.",
+    accent:"#2F6FED",soft:"#EAF1FF"
+  },
+  "Plan + Grow":{
+    title:"I plan ahead and want to make progress",
+    short:"Plan + Grow",
+    words:["Plan ahead","Build / grow"],
+    description:"I like goals, milestones, and using money to create future progress.",
+    accent:"#8357E6",soft:"#F1EBFF"
+  },
+  "Reactive + Enjoy":{
+    title:"I like flexibility and enjoying the moment",
+    short:"Flexible + Enjoy",
+    words:["Flexible","Enjoy / explore"],
+    description:"I value freedom, experiences, and trying things without planning every detail.",
+    accent:"#F05519",soft:"#FFF0E8"
+  },
+  "Reactive + Avoid":{
+    title:"I prefer keeping money simple",
+    short:"Flexible + Simple",
+    words:["Keep it simple","Handle when needed"],
+    description:"I do not want money to take too much headspace and usually deal with things when needed.",
+    accent:"#16A34A",soft:"#DDF7EC"
+  }
+};
+
+const QUADRANT_GROWTH = {
+  "Plan + Protect":[
+    "Set one clear safety-fund target instead of simply saving more.",
+    "Automate a small transfer so security happens without daily effort.",
+    "Keep a planned enjoyment amount so your system stays flexible."
+  ],
+  "Plan + Grow":[
+    "Choose one 6–12 month goal and give it a monthly number.",
+    "Automate a small growth or investment amount you can sustain.",
+    "Review progress once a month instead of reacting to every market move."
+  ],
+  "Reactive + Enjoy":[
+    "Set a guilt-free fun amount before the month begins.",
+    "Use a 24-hour pause for bigger unplanned purchases.",
+    "Keep a small explore budget for new experiences or tools."
+  ],
+  "Reactive + Avoid":[
+    "Do one 10-minute money check each week.",
+    "Resolve one pending bill, subscription, or money task at a time.",
+    "For urgent links or payment requests, use Pause → Verify → Protect."
+  ]
+};
+
+function renderOpeningQuadrants(){
+  const el=$("#openingQuadrantPicker");
+  el.innerHTML="";
+  Object.entries(QUADRANT_CHOICES).forEach(([q,item])=>{
+    const b=document.createElement("button");
+    b.className="quad-pick"+(state.openingQuadrant===q?" selected":"");
+    b.style.setProperty("--qaccent",item.accent);
+    b.style.setProperty("--qsoft",item.soft);
+    b.innerHTML=`<div class="q-title">${item.title}</div>
+      <div class="q-words">${item.words.map(w=>`<span class="q-word">${w}</span>`).join("")}</div>
+      <p>${item.description}</p>`;
+    b.addEventListener("click",()=>{
+      state.openingQuadrant=q;
+      renderPreflight();
+      saveProgress();
+    });
+    el.appendChild(b);
+  });
+}
+
+function renderPreflight(){
+  document.querySelectorAll(".intent-option").forEach(b=>{
+    b.classList.toggle("selected",b.dataset.mode===state.openingMode);
+  });
+  document.querySelectorAll(".length-option").forEach(b=>{
+    b.classList.toggle("selected",Number(b.dataset.length)===state.quizLength);
+  });
+
+  $("#quadrantPrompt").textContent = state.openingMode==="current"
+    ? "Which box feels most like you today?"
+    : "Which box would you like to become more like?";
+  $("#quadrantHelp").textContent = state.openingMode==="current"
+    ? "Go with your first instinct. There is no better or worse box."
+    : "Choose the money strength you would most like to build.";
+
+  renderOpeningQuadrants();
+
+  $("#beginMomentsBtn").disabled=!state.openingQuadrant;
+  $("#beginMomentsBtn").textContent=`Begin ${state.quizLength} Money Moments →`;
+  $("#startSummary").textContent = `${state.quizLength} Money Moments selected. ` +
+    (state.openingMode==="current"
+      ? "Your final profile will compare your self-view with your scenario choices."
+      : "Your final profile will show how your scenario choices compare with the direction you want to build.");
+}
+
+document.querySelectorAll(".intent-option").forEach(b=>b.addEventListener("click",()=>{
+  state.openingMode=b.dataset.mode==="aspire" ? "aspire" : "current";
+  renderPreflight(); saveProgress();
+}));
+
+document.querySelectorAll(".length-option").forEach(b=>b.addEventListener("click",()=>{
+  setQuestionSet(Number(b.dataset.length));
+  state.current=0;
+  state.answers=Array(QUESTIONS.length).fill(null);
+  state.result=null;
+  renderPreflight(); saveProgress();
+}));
+
+$("#beginMomentsBtn").addEventListener("click",()=>{
+  setQuestionSet(state.quizLength);
+  startQuiz(true);
+});
+
+/* EVENTS */
+$("#startBtn").addEventListener("click",()=>$("#preflightSection").scrollIntoView({behavior:"smooth",block:"start"}));
+$("#resumeBtn").addEventListener("click",()=>{
+  if(loadProgress()){
+    renderPreflight();
+    if(!state.openingQuadrant){
+      $("#preflightSection").scrollIntoView({behavior:"smooth",block:"start"});
+    } else if(state.result && !state.answers.some(v=>v===null)) {
+      showResult();
+    } else {
+      startQuiz(false);
+    }
+  }else{
+    toast("No saved journey yet — start with your own self-read.");
+    $("#preflightSection").scrollIntoView({behavior:"smooth",block:"start"});
+  }
+});
+els.prev.addEventListener("click",()=>{
+  if(state.current>0){state.current--;saveProgress();renderQuestion();}
+});
+els.next.addEventListener("click",()=>{
+  if(state.answers[state.current]===null){toast("Choose the option closest to your real behavior.");return;}
+  if(state.current<QUESTIONS.length-1){state.current++;saveProgress();renderQuestion();window.scrollTo({top:els.quiz.offsetTop-12,behavior:"smooth"});}
+  else showResult();
+});
+$("#saveCommitmentBtn").addEventListener("click",saveCommitment);
+$("#printBtn").addEventListener("click",()=>window.print());
+$("#downloadCardBtn").addEventListener("click",downloadResultCard);
+$("#exportJsonBtn").addEventListener("click",()=>{
+  const data=buildExport();
+  downloadText("fin-act-money-personality-profile.json",JSON.stringify(data,null,2));
+});
+$("#retakeBtn").addEventListener("click",()=>{
+  localStorage.removeItem("finact_money_personality");
+  state.current=0;
+  setQuestionSet(12);
+  state.answers=Array(QUESTIONS.length).fill(null);
+  state.result=null;
+  state.selfType=null;
+  state.desiredType=null;
+  state.selfQuadrant=null;
+  state.desiredQuadrant=null;
+  state.openingMode="current";
+  state.openingQuadrant=null;
+  setQuestionSet(12);
+  state.quizLength=12;
+  state.participantId=uid();
+  renderPreflight();
+  els.result.classList.add("hidden");
+  $("#preflightSection").scrollIntoView({behavior:"smooth",block:"start"});
+});
+
+renderGallery();
+renderPreflight();
+$("#heroOwl").innerHTML=mascotSVG("owl");
+$("#heroFox").innerHTML=mascotSVG("fox");
+$("#heroDolphin").innerHTML=mascotSVG("dolphin");
+$("#heroCheetah").innerHTML=mascotSVG("cheetah");
+
+if(!loadProgress()){
+  state.participantId=uid();
+  setQuestionSet(12);
+}
+renderPreflight();
+</script>
+</body>
+</html>
